@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Start Server (dev)" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="example" />
+    <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GIN_MODE" value="debug" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="example" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/server.go" />
+    <method v="2" />
+  </configuration>
+</component>
