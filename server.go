@@ -34,8 +34,8 @@ func playgroundHandler() gin.HandlerFunc {
 }
 
 func main() {
-
-	_, err := config.DB().Connect()
+	config.GenerateBanner()
+	_, err := config.DB()
 
 	if err != nil {
 		return
