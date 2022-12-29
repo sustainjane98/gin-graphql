@@ -6,13 +6,20 @@ package graph
 
 import (
 	"context"
+	"example/converter"
 	"example/graph/model"
-	"fmt"
+	"example/services"
 )
 
 // SignUp is the resolver for the signUp field.
 func (r *mutationResolver) SignUp(ctx context.Context, user model.CreateUserDto) (*model.UserDto, error) {
-	panic(fmt.Errorf("not implemented: SignUp - signUp"))
+	dao := converter.User().CreateDtoToDao(user)
+
+	err := services.DB().User().Create(&dao)
+	dto := converter.User().DaoToDto(dao)
+
+	return &dto, err
+
 }
 
 // Me is the resolver for the me field.
