@@ -15,7 +15,11 @@ func (u userService) Create(d *models.UserDao) error {
 		return err
 	}
 
-	db.Create(d)
+	err = db.Create(d).Error
+
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
