@@ -13,7 +13,16 @@ import (
 
 // SignUp is the resolver for the signUp field.
 func (r *mutationResolver) SignUp(ctx context.Context, user model.CreateUserDto) (*model.UserDto, error) {
-	dao, err := converter.User().CreateDtoToDao(user)
+
+	err := services.Validator().User().PasswordAndConfirmEqual(user).Get()
+
+	if err != nil {
+		return nil, err
+	}
+
+	dao := converter.User().CreateDtoToDao(user)
+
+	err = services.DBActions().EncryptPassword(dao)
 
 	if err != nil {
 		return nil, err
@@ -25,9 +34,10 @@ func (r *mutationResolver) SignUp(ctx context.Context, user model.CreateUserDto)
 		return nil, err
 	}
 
-	dto := converter.User().DaoToDto(*dao)
+	dto := converter.User().DaoToDto(dao)
 
 	return &dto, err
+
 }
 
 // Me is the resolver for the me field.

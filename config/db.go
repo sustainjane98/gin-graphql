@@ -19,4 +19,5 @@ func DB() (*gorm.DB, error) {
 	db = dbI
 
 	return db, err
+
 }
