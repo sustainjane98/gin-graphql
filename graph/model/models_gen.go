@@ -3,6 +3,10 @@
 package model
 
 type CreateUserDto struct {
+	Email           string `json:"email"`
+	Firstname       string `json:"firstname"`
+	Lastname        string `json:"lastname"`
+	Birthdate       Date   `json:"birthdate"`
 	Age             int    `json:"age"`
 	Username        string `json:"username"`
 	Password        string `json:"password"`
@@ -10,7 +14,11 @@ type CreateUserDto struct {
 }
 
 type UserDto struct {
-	ID       string `json:"id"`
-	Age      int    `json:"age"`
-	Username string `json:"username"`
+	ID        string `json:"id"`
+	Email     string `json:"email"`
+	Firstname string `json:"firstname"`
+	Lastname  string `json:"lastname"`
+	Birthdate Date   `json:"birthdate"`
+	Age       int    `json:"age"`
+	Username  string `json:"username"`
 }

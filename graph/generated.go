@@ -54,9 +54,13 @@ type ComplexityRoot struct {
 	}
 
 	UserDTO struct {
-		Age      func(childComplexity int) int
-		ID       func(childComplexity int) int
-		Username func(childComplexity int) int
+		Age       func(childComplexity int) int
+		Birthdate func(childComplexity int) int
+		Email     func(childComplexity int) int
+		Firstname func(childComplexity int) int
+		ID        func(childComplexity int) int
+		Lastname  func(childComplexity int) int
+		Username  func(childComplexity int) int
 	}
 }
 
@@ -108,12 +112,40 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.UserDTO.Age(childComplexity), true
 
+	case "UserDTO.birthdate":
+		if e.complexity.UserDTO.Birthdate == nil {
+			break
+		}
+
+		return e.complexity.UserDTO.Birthdate(childComplexity), true
+
+	case "UserDTO.email":
+		if e.complexity.UserDTO.Email == nil {
+			break
+		}
+
+		return e.complexity.UserDTO.Email(childComplexity), true
+
+	case "UserDTO.firstname":
+		if e.complexity.UserDTO.Firstname == nil {
+			break
+		}
+
+		return e.complexity.UserDTO.Firstname(childComplexity), true
+
 	case "UserDTO.id":
 		if e.complexity.UserDTO.ID == nil {
 			break
 		}
 
 		return e.complexity.UserDTO.ID(childComplexity), true
+
+	case "UserDTO.lastname":
+		if e.complexity.UserDTO.Lastname == nil {
+			break
+		}
+
+		return e.complexity.UserDTO.Lastname(childComplexity), true
 
 	case "UserDTO.username":
 		if e.complexity.UserDTO.Username == nil {
@@ -319,6 +351,14 @@ func (ec *executionContext) fieldContext_Mutation_signUp(ctx context.Context, fi
 			switch field.Name {
 			case "id":
 				return ec.fieldContext_UserDTO_id(ctx, field)
+			case "email":
+				return ec.fieldContext_UserDTO_email(ctx, field)
+			case "firstname":
+				return ec.fieldContext_UserDTO_firstname(ctx, field)
+			case "lastname":
+				return ec.fieldContext_UserDTO_lastname(ctx, field)
+			case "birthdate":
+				return ec.fieldContext_UserDTO_birthdate(ctx, field)
 			case "age":
 				return ec.fieldContext_UserDTO_age(ctx, field)
 			case "username":
@@ -382,6 +422,14 @@ func (ec *executionContext) fieldContext_Query_me(ctx context.Context, field gra
 			switch field.Name {
 			case "id":
 				return ec.fieldContext_UserDTO_id(ctx, field)
+			case "email":
+				return ec.fieldContext_UserDTO_email(ctx, field)
+			case "firstname":
+				return ec.fieldContext_UserDTO_firstname(ctx, field)
+			case "lastname":
+				return ec.fieldContext_UserDTO_lastname(ctx, field)
+			case "birthdate":
+				return ec.fieldContext_UserDTO_birthdate(ctx, field)
 			case "age":
 				return ec.fieldContext_UserDTO_age(ctx, field)
 			case "username":
@@ -561,6 +609,182 @@ func (ec *executionContext) fieldContext_UserDTO_id(ctx context.Context, field g
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
 			return nil, errors.New("field of type ID does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _UserDTO_email(ctx context.Context, field graphql.CollectedField, obj *model.UserDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_UserDTO_email(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Email, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_UserDTO_email(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "UserDTO",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _UserDTO_firstname(ctx context.Context, field graphql.CollectedField, obj *model.UserDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_UserDTO_firstname(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Firstname, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_UserDTO_firstname(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "UserDTO",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _UserDTO_lastname(ctx context.Context, field graphql.CollectedField, obj *model.UserDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_UserDTO_lastname(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Lastname, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(string)
+	fc.Result = res
+	return ec.marshalNString2string(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_UserDTO_lastname(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "UserDTO",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type String does not have child fields")
+		},
+	}
+	return fc, nil
+}
+
+func (ec *executionContext) _UserDTO_birthdate(ctx context.Context, field graphql.CollectedField, obj *model.UserDto) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_UserDTO_birthdate(ctx, field)
+	if err != nil {
+		return graphql.Null
+	}
+	ctx = graphql.WithFieldContext(ctx, fc)
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Birthdate, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.(model.Date)
+	fc.Result = res
+	return ec.marshalNDate2exampleᚋgraphᚋmodelᚐDate(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) fieldContext_UserDTO_birthdate(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+	fc = &graphql.FieldContext{
+		Object:     "UserDTO",
+		Field:      field,
+		IsMethod:   false,
+		IsResolver: false,
+		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
+			return nil, errors.New("field of type Date does not have child fields")
 		},
 	}
 	return fc, nil
@@ -2434,13 +2658,45 @@ func (ec *executionContext) unmarshalInputCreateUserDTO(ctx context.Context, obj
 		asMap[k] = v
 	}
 
-	fieldsInOrder := [...]string{"age", "username", "password", "passwordConfirm"}
+	fieldsInOrder := [...]string{"email", "firstname", "lastname", "birthdate", "age", "username", "password", "passwordConfirm"}
 	for _, k := range fieldsInOrder {
 		v, ok := asMap[k]
 		if !ok {
 			continue
 		}
 		switch k {
+		case "email":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("email"))
+			it.Email, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "firstname":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("firstname"))
+			it.Firstname, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "lastname":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("lastname"))
+			it.Lastname, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "birthdate":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("birthdate"))
+			it.Birthdate, err = ec.unmarshalNDate2exampleᚋgraphᚋmodelᚐDate(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		case "age":
 			var err error
 
@@ -2604,6 +2860,34 @@ func (ec *executionContext) _UserDTO(ctx context.Context, sel ast.SelectionSet, 
 		case "id":
 
 			out.Values[i] = ec._UserDTO_id(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "email":
+
+			out.Values[i] = ec._UserDTO_email(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "firstname":
+
+			out.Values[i] = ec._UserDTO_firstname(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "lastname":
+
+			out.Values[i] = ec._UserDTO_lastname(ctx, field, obj)
+
+			if out.Values[i] == graphql.Null {
+				invalids++
+			}
+		case "birthdate":
+
+			out.Values[i] = ec._UserDTO_birthdate(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
 				invalids++
@@ -2969,6 +3253,16 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 func (ec *executionContext) unmarshalNCreateUserDTO2exampleᚋgraphᚋmodelᚐCreateUserDto(ctx context.Context, v interface{}) (model.CreateUserDto, error) {
 	res, err := ec.unmarshalInputCreateUserDTO(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNDate2exampleᚋgraphᚋmodelᚐDate(ctx context.Context, v interface{}) (model.Date, error) {
+	var res model.Date
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNDate2exampleᚋgraphᚋmodelᚐDate(ctx context.Context, sel ast.SelectionSet, v model.Date) graphql.Marshaler {
+	return v
 }
 
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {

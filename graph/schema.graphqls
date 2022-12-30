@@ -2,8 +2,17 @@
 #
 # https://gqlgen.com/getting-started/
 
+"""
+The `Date` scalar type represents a Date without time in a special format `dd.MM.YYYY`.
+"""
+scalar Date
+
 type UserDTO {
   id: ID!
+  email: String!
+  firstname: String!
+  lastname: String!
+  birthdate: Date!
   age: Int!
   username: String!
 }
@@ -13,6 +22,10 @@ type Query {
 }
 
 input CreateUserDTO {
+  email: String!
+  firstname: String!
+  lastname: String!
+  birthdate: Date!
   age: Int!
   username: String!
   password: String!

@@ -13,13 +13,21 @@ import (
 
 // SignUp is the resolver for the signUp field.
 func (r *mutationResolver) SignUp(ctx context.Context, user model.CreateUserDto) (*model.UserDto, error) {
-	dao := converter.User().CreateDtoToDao(user)
+	dao, err := converter.User().CreateDtoToDao(user)
 
-	err := services.DB().User().Create(&dao)
-	dto := converter.User().DaoToDto(dao)
+	if err != nil {
+		return nil, err
+	}
+
+	err = services.DB().User().Create(dao)
+
+	if err != nil {
+		return nil, err
+	}
+
+	dto := converter.User().DaoToDto(*dao)
 
 	return &dto, err
-
 }
 
 // Me is the resolver for the me field.
