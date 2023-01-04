@@ -6,21 +6,19 @@ package graph
 
 import (
 	"context"
-	"example/converter"
 	"example/graph/model"
 	"example/services"
 )
 
 // SignUp is the resolver for the signUp field.
 func (r *mutationResolver) SignUp(ctx context.Context, user model.CreateUserDto) (*model.UserDto, error) {
-
 	err := services.Validator().User().PasswordAndConfirmEqual(user).Get()
 
 	if err != nil {
 		return nil, err
 	}
 
-	dao := converter.User().CreateDtoToDao(user)
+	dao := services.Converter().User().CreateDtoToDao(user)
 
 	err = services.DBActions().EncryptPassword(dao)
 
@@ -34,10 +32,29 @@ func (r *mutationResolver) SignUp(ctx context.Context, user model.CreateUserDto)
 		return nil, err
 	}
 
-	dto := converter.User().DaoToDto(dao)
+	dto := services.Converter().User().DaoToDto(dao)
 
 	return &dto, err
+}
 
+// Login is the resolver for the login field.
+func (r *mutationResolver) Login(ctx context.Context, username string, password string) (*model.UserDto, error) {
+
+	res, err := services.DB().User().FindByUsername(username)
+
+	if err != nil {
+		return nil, err
+	}
+
+	err = services.Validator().User().PasswordAndHashedEqual([]byte(password), []byte(res.Password)).Get()
+
+	if err != nil {
+		return nil, err
+	}
+
+	dto := services.Converter().User().DaoToDto(res)
+
+	return &dto, nil
 }
 
 // Me is the resolver for the me field.

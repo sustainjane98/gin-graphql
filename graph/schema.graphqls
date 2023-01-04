@@ -34,4 +34,5 @@ input CreateUserDTO {
 
 type Mutation {
   signUp(user: CreateUserDTO!): UserDTO!
+  login(username: String!, password: String!): UserDTO!
 }

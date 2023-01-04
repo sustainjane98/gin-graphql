@@ -9,7 +9,7 @@ import (
 type userConverter struct {
 }
 
-func User() userConverter {
+func (ConverterServices) User() userConverter {
 	return userConverter{}
 }
 

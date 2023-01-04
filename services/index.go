@@ -2,6 +2,7 @@ package services
 
 import (
 	"example/services/actions"
+	"example/services/converter"
 	"example/services/db"
 	"example/services/encryption"
 	"example/services/validators"
@@ -21,4 +22,8 @@ func Encryption() encryption.EncryptionService {
 
 func DBActions() actions.ActionServices {
 	return actions.ActionServices{}
+}
+
+func Converter() converter.ConverterServices {
+	return converter.ConverterServices{}
 }
